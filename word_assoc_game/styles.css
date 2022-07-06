@@ -1,0 +1,37 @@
+.app{
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    padding: 100px;
+}
+
+.questions{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+
+.question_box{
+    background-color: orange;
+    margin: 17px;
+    font-weight: bold;
+    color: rgba(9, 17, 32, 0.809);
+    border-radius: 9px;
+    padding: 0 38px 10px 39px;
+}
+
+.question_box h1{
+    color: rgb(177, 126, 111);
+}
+
+.question_button{
+    margin: 5px;
+    padding: 10px 20px;
+    border-radius: 18px;
+    border: none;
+    background-color: rgba(85, 102, 51, 0.828);
+    color: antiquewhite;
+    font-weight: bold;
+}
