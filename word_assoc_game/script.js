@@ -37,6 +37,7 @@ const questions = [
 ]
 
 let score = 0;
+let clicked = [];
 scoreDisplay.textContent = score;
 
 
@@ -58,17 +59,17 @@ const populateQuestions = () => {
         })
 
         //our questions buttons
-        const questionButtons = document.createElement('mgfdsdiv')
+        const questionButtons = document.createElement('div')
         questionButtons.classList.add('question_buttons')
         questionBox.append(questionButtons)
 
-        question.options.forEach( option => {
+        question.options.forEach((option, optionIndex) => {
             const questionButton = document.createElement('button')
             questionButton.classList.add('question_button')
             questionButton.textContent = option
 
             //event listener to handle checking result
-            questionButton.addEventListener('click', () => checkAnswer(option, optionIndex, question.correct))
+            questionButton.addEventListener('click', () => checkAnswer(questionButton, option, optionIndex + 1, question.correct))
 
             questionButtons.append(questionButton)
         })
@@ -81,7 +82,7 @@ const populateQuestions = () => {
 
 populateQuestions()
 
-function checkAnswer(option, optionIndex, correctOption) {
+function checkAnswer(questionButton, option, optionIndex, correctOption) {
 
     console.log(option, 'clicked')
 
@@ -93,4 +94,6 @@ function checkAnswer(option, optionIndex, correctOption) {
         score--
         scoreDisplay.textContent = score
     }
+    clicked.push(option)
+    questionButton.disabled = clicked.includes(option)
 }
