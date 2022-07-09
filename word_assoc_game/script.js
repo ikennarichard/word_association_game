@@ -43,22 +43,24 @@ scoreDisplay.textContent = score;
 
 //get the questionDisplay and populate it with the questions
 
-const populateQuestions = () => {
+function populateQuestions(){
     questions.forEach(question => {
         const questionBox = document.createElement('div')
         questionBox.classList.add('question_box')
 
+//logo display
         const logoDisplay = document.createElement('h1')
         logoDisplay.textContent = "*"
         questionBox.append(logoDisplay)
 
+        //create p tag to hold question text
         question.quiz.forEach(tip => {
             const tipText = document.createElement('p')
             tipText.textContent = tip
             questionBox.append(tipText)
         })
 
-        //our questions buttons
+        //a div to store our questions buttons
         const questionButtons = document.createElement('div')
         questionButtons.classList.add('question_buttons')
         questionBox.append(questionButtons)
@@ -69,12 +71,15 @@ const populateQuestions = () => {
             questionButton.textContent = option
 
             //event listener to handle checking result
-            questionButton.addEventListener('click', () => checkAnswer(questionButton, option, optionIndex + 1, question.correct))
+            questionButton.addEventListener('click', () => checkAnswer(questionBox, questionButton, option, optionIndex + 1, question.correct))
 
             questionButtons.append(questionButton)
         })
 
+        const answerDisplay = document.createElement('div')
+        answerDisplay.classList.add('answer_display');
 
+        questionBox.append(answerDisplay)
         questionDisplay.append(questionBox)
 
     })
@@ -82,18 +87,32 @@ const populateQuestions = () => {
 
 populateQuestions()
 
-function checkAnswer(questionButton, option, optionIndex, correctOption) {
+function checkAnswer(questionBox,questionButton, option, optionIndex, correctOption) {
 
     console.log(option, 'clicked')
 
     if (optionIndex === correctOption) {
         score++
         scoreDisplay.textContent = score
+        addResult(questionBox, 'Correct!', 'correct')
 
     } else {
         score--
         scoreDisplay.textContent = score
+        addResult(questionBox, 'Wrong!', 'wrong')
     }
     clicked.push(option)
     questionButton.disabled = clicked.includes(option)
 }
+
+//where we add result to answer_display
+
+function addResult(questionBox, answer, className) {
+    const answerDisplay = questionBox.querySelector('.answer_display')
+    answerDisplay.classList.remove('wrong')
+    answerDisplay.classList.remove('correct')
+    answerDisplay.classList.add(className)
+    answerDisplay.textContent = answer
+}
+
+//49.47
